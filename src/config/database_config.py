@@ -10,7 +10,7 @@ class ElasticConfig(BaseSettings):
     def get_cred(self) -> dict[str, list | tuple[str, str]]:
         cred = {
             "hosts": [f"{self.ELASTIC_HOST}:{self.ELASTIC_PORT}"],
-            "basic_auth": (self.ELASTIC_USER, self.ELASTIC_PASSWORD)
+            "http_auth": (self.ELASTIC_USER, self.ELASTIC_PASSWORD)
         }
         return cred 
     

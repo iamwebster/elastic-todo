@@ -9,6 +9,8 @@ services:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
       xpack.security.enabled: true
       ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
     networks:
       - elastic_todo
     env_file:
@@ -33,3 +35,7 @@ services:
 networks:
   elastic_todo:
     driver: bridge
+
+volumes:
+  es_data:
+    driver: local
