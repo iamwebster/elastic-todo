@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager 
 
-from elasticsearch import AsyncElasticsearch
 from fastapi import FastAPI
+from elasticsearch import AsyncElasticsearch
 
 from src.api import user_endpoint
 from src.config import elastic_conf

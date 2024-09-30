@@ -1,6 +1,6 @@
 from elasticsearch import AsyncElasticsearch 
 
-from src.config import USERS_INDEX
+from src.config import elastic_conf
 from src.api.schemas.user_schemas import UserBase
 from src.utils.project_utils import get_current_datetime_with_tz
 
@@ -28,7 +28,7 @@ def map_to_user_list(users_data: dict) -> list[dict]:
     return list_of_users_data
 
 async def get_users_data(es: AsyncElasticsearch):
-    users_data = await es.search(index=USERS_INDEX)
+    users_data = await es.search(index=elastic_conf.USERS_INDEX)
     return map_to_user_list(users_data)
 
 
@@ -38,7 +38,7 @@ def get_user_payload(user_data: UserBase) -> dict:
             "name": user_data.name,
         },
         "contacts": {
-            "phone": "8493021834",
+            "phone": user_data.phone,
         },
         "created_at": get_current_datetime_with_tz()
     }
@@ -54,5 +54,5 @@ def get_user_payload(user_data: UserBase) -> dict:
 
 async def create_user_in_db(es: AsyncElasticsearch, user_data: UserBase) -> str:
     user_payload = get_user_payload(user_data)
-    es_response = await es.index(index=USERS_INDEX, body=user_payload)
+    es_response = await es.index(index=elastic_conf.USERS_INDEX, body=user_payload)
     return es_response["_id"]
