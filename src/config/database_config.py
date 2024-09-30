@@ -19,5 +19,5 @@ class ElasticConfig(BaseSettings):
         extra = "allow"
 
 
-elastic_config = ElasticConfig()
+elastic_conf = ElasticConfig()
 USERS_INDEX = "users"
